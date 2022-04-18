@@ -11,7 +11,7 @@ namespace RefactorMe
     // Only for debugging purposes.
     static async Task Main (string[] args)
     {
-      var gen = new ExternalIdService (null);
+      var externalIdService = new ExternalIdService (null);
 
       var site1 = new Dictionary<string, object>
         { { "id", 1 },
@@ -28,15 +28,15 @@ namespace RefactorMe
       var entityProduct = new Dictionary<string, object> { { "id", 3 } };
       var entityOrder = new Dictionary<string, object> { { "id", 4 } };
 
-      await gen.GenerateAsync (
+      await externalIdService.GenerateAsync (
         new List<Dictionary<string, object>> { site1, site2 },
         new TypeMetadata { Name = "Site" });
 
-      await gen.GenerateAsync (
+      await externalIdService.GenerateAsync (
         new List<Dictionary<string, object>> { entityProduct },
         new TypeMetadata { Name = "Product" });
 
-      await gen.GenerateAsync (
+      await externalIdService.GenerateAsync (
         new List<Dictionary<string, object>> { entityOrder },
         new TypeMetadata { Name = "Order" });
 

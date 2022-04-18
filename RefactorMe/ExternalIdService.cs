@@ -141,9 +141,16 @@ namespace Opsi.Cloud.Core
 
     /*
     Comments:
-    Depending on the rest of the architecture, I would usually expect an exception to be thrown here. 
+    Depending on the rest of the architecture, I might expect an exception to be thrown here.
     If it's not possible to generate a correct externalId, in most apps this would be a breaking issue.
-    In rare cases, e.g. if it's a visual indicator for the UI only, some product owners might prefer it to not break and rather display invalid text.
+    In some cases, a product owner might prefer it to not break and rather display invalid text or different text.
+    
+    e.g. taking the example value of "ST-<postalOrZipCode>-123", if there is no postal or zip code, then options might be:
+    1) ST-123
+    2) Throw exception
+    3) ST-0000-123
+    4) ST-invalid-123  // not commonly used
+
     */
     private string GetEntity (string attribute, object entity)
     {
@@ -171,7 +178,7 @@ namespace Opsi.Cloud.Core
           }
           else
           {
-            resultObject = "";
+            resultObject = "0000"; // This failure text would be different depending on the decisions of the stakeholders.
             break;
           }
         }
